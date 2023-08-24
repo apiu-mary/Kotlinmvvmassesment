@@ -1,0 +1,67 @@
+//package com.apiu.kotlin_mvv_assessment.Viewmodel
+//
+//import androidx.lifecycle.MutableLiveData
+//import androidx.lifecycle.ViewModel
+//import com.apiu.kotlin_mvv_assessment.model.Product
+//
+//class ProductsViewmodel {
+//    val productsRepo=ProductsViewmodel()
+//    val productsLiveData=MutableLiveData<List<Product>>()
+//    val errLiveData =MutableLiveData<String>()
+//    //shall invoke our products(function in the repo
+//    fun  fetchProducts(){
+//
+//
+//        view.launch {
+//            productsRepo.getProduct()
+//            val response =productsRepo.getProduct()
+//            if(response.isSuccessful){
+//                productsLiveData.postValue(response.body()?.products)
+//            }
+//            else{
+//                errLiveData.postValue(response.errorBody()?.string())
+//            }
+//
+//
+//        }
+//
+//    }
+//
+//}
+//
+//
+
+package com.apiu.kotlin_mvv_assessment.viewmodel
+
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.apiu.kotlin_mvv_assessment.model.Product
+
+import com.apiu.kotlin_mvv_assessment.repository.ProductRespository
+
+import kotlinx.coroutines.launch
+import retrofit2.Response
+
+class ProductsViewModel : ViewModel() {
+    private val productsRepo =
+        ProductRespository.ProductRepository() // Create an instance of the repository
+    val productsLiveData = MutableLiveData<List<Product>>()
+    val errLiveData = MutableLiveData<String>()
+
+    // Function to fetch products
+    fun fetchProducts() {
+        viewModelScope.launch {
+            try {
+                val response: Response<List<Product>> = productsRepo.getProduct()
+                if (response.isSuccessful) {
+                    productsLiveData.postValue(response.body())
+                } else {
+                    errLiveData.postValue(response.errorBody()?.string())
+                }
+            } catch (e: Exception) {
+                errLiveData.postValue(e.message)
+            }
+        }
+    }
+}
