@@ -53,6 +53,9 @@ dependencies {
 
     implementation("androidx.test.espresso:espresso-core:3.5.1")
 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
+
+
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-alpha02")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0-alpha02")
     implementation("androidx.activity:activity-ktx:1.2.4")
@@ -64,14 +67,16 @@ dependencies {
 
 
 
-//
-//
-//
-//
-//
-//
-//
-//    implementation 'androidx.activity:activity-ktx:1.2.4'
+
+
+
+
+
+
+
+
+
+
 
 
 }

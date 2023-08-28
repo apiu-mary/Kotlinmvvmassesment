@@ -2,23 +2,22 @@ package com.apiu.kotlin_mvv_assessment.repository
 
 import com.apiu.kotlin_mvv_assessment.api.ApiClient
 import com.apiu.kotlin_mvv_assessment.api.ApiInterface
-import com.apiu.kotlin_mvv_assessment.model.ProductResponse
+import com.apiu.kotlin_mvv_assessment.model.Product
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 
-class ProductRespository {
+
+class ProductRepository {
 
 
-    class ProductRepository {
-    }
-    val apiclient=ApiClient.buildClient(ApiInterface::class.java)
-//enables kotlin 2 pause the function and allow another function to use the thread
+val apiClient = ApiClient.buildClient(ApiInterface::class.java)
 
-    suspend fun  getProduct(): Response<ProductResponse> {
+    suspend fun getPosts(): Response<List<Product>> {
         return withContext(Dispatchers.IO){
-            apiclient.getProduct()
+            apiClient.getPosts()
         }
     }
 
 }
+
